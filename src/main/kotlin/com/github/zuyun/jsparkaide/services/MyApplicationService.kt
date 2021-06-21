@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.zuyun.jsparkaide.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.zuyun.jsparkaide.MyBundle
 
 class MyApplicationService {
 
