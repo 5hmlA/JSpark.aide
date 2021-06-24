@@ -1,7 +1,7 @@
-package com.github.zuyun.jsparkaide.services
+package jzy.taining.plugins.jspark.services
 
-import com.github.zuyun.jsparkaide.MyBundle
 import com.intellij.openapi.project.Project
+import jzy.taining.plugins.jspark.MyBundle
 
 class MyProjectService(project: Project) {
 

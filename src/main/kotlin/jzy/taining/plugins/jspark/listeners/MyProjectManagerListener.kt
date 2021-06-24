@@ -1,9 +1,9 @@
-package com.github.zuyun.jsparkaide.listeners
+package jzy.taining.plugins.jspark.listeners
 
-import com.github.zuyun.jsparkaide.services.MyProjectService
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
+import jzy.taining.plugins.jspark.services.MyProjectService
 
 internal class MyProjectManagerListener : ProjectManagerListener {
 

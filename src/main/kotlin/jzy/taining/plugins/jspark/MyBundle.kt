@@ -1,4 +1,4 @@
-package com.github.zuyun.jsparkaide
+package jzy.taining.plugins.jspark
 
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls

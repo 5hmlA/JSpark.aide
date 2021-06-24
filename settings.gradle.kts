@@ -1,1 +1,1 @@
-rootProject.name = "JSpark.aide"
+rootProject.name = "JSpark"

@@ -1,6 +1,6 @@
-package com.github.zuyun.jsparkaide.services
+package jzy.taining.plugins.jspark.services
 
-import com.github.zuyun.jsparkaide.MyBundle
+import jzy.taining.plugins.jspark.MyBundle
 
 class MyApplicationService {
 

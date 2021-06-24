@@ -1,19 +1,32 @@
 <idea-plugin>
-    <id>com.github.zuyun.jsparkaide</id>
-    <name>JSpark.aide</name>
-    <vendor>zuyun</vendor>
+    <id>jzy.taining.plugins.JSpark</id>
+    <name>JSpark</name>
+    <vendor>taining</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+    <depends>org.jetbrains.kotlin</depends>
+    <depends>org.jetbrains.android</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.zuyun.jsparkaide.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.zuyun.jsparkaide.services.MyProjectService"/>
+        <applicationService serviceImplementation="jzy.taining.plugins.jspark.services.MyApplicationService"/>
+        <projectService serviceImplementation="jzy.taining.plugins.jspark.services.MyProjectService"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.zuyun.jsparkaide.listeners.MyProjectManagerListener"
+        <listener class="jzy.taining.plugins.jspark.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+    <actions>
+        <action id="jzy.jspark.basicui" class="jzy.taining.plugins.jspark.actions.BasicTempAction" text="BasicUI"
+                description="基类UI实现模板" icon="/modules/sourceRoot.svg">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+        </action>
+        <action id="jspark.june.webp" class="jzy.taining.plugins.jspark.actions.ConvertAllToWebpAction"
+                text="ConvertAllToWebpAction" description="ConvertAllToWebpAction">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+        </action>
+    </actions>
 </idea-plugin>
