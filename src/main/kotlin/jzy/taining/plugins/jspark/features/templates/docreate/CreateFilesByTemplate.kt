@@ -1,12 +1,10 @@
 package jzy.taining.plugins.jspark.features.templates.docreate
 
 import com.android.SdkConstants
-import com.android.tools.idea.gradle.project.build.compiler.AndroidGradleBuildConfiguration
-import com.android.tools.idea.wizard.template.template
 import com.intellij.openapi.command.WriteCommandAction
 import jzy.taining.plugins.jspark.features.templates.TemplateFileFactory
 import jzy.taining.plugins.jspark.features.templates.data.*
-import jzy.taining.plugins.jspark.features.templates.repository.AndroidScopeProcessor
+import jzy.taining.plugins.jspark.features.templates.wizard.AndroidScopeProcessor
 import jzy.taining.plugins.jspark.features.templates.templates.TemplateInflate
 import jzy.taining.plugins.jspark.features.templates.wizard.AndroidMainfestMagic
 import jzy.taining.plugins.jspark.features.templates.wizard.FileCreaterImpl
@@ -30,7 +28,7 @@ class CreateFilesByTemplate : TemplateFileFactory {
             val fileCreater = FileCreaterImpl()
 
             val templateValues = templateValues {
-                applicationId = androidScope.getApplicationId()
+                applicationId = androidScope.applicationid
                 packageName = androidScope.getPackageName(tempConfig.rootDir)!!
                 activityName = tempConfig.activityName
                 viewModelName = tempConfig.viewModuleName

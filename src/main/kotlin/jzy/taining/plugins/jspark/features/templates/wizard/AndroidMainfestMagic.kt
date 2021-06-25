@@ -1,6 +1,7 @@
 package jzy.taining.plugins.jspark.features.templates.wizard
 
 import com.android.SdkConstants
+import com.android.tools.idea.npw.project.getPackageForApplication
 import com.google.common.collect.Iterables
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.vfs.VfsUtil
@@ -47,19 +48,15 @@ class AndroidMainfestMagic(envi: Environment) {
                 if (SdkConstants.TAG_MANIFEST == tag.name) {
                     var applicationTag: XmlTag? = null
                     for (child in tag.children) {
-                        if (child is XmlTag) {
-                            println(child.name)
-                            for (child in child.children) {
-                                if (child is XmlTag) {
-                                    println(child.name)
-                                }
-                            }
-                        }
-                        if (child is XmlTag && SdkConstants.TAG_APPLICATION == (child as XmlTag).name) {
-                            applicationTag = child as XmlTag
-                            for (xmlTag in actTagXml) {
-                                applicationTag.addSubTag(xmlTag, false)
-                            }
+//                        if (child is XmlTag) {
+//                            child.children.forEach { if(it is XmlTag) println(it.name) }
+//                        }
+                        if (child is XmlTag && SdkConstants.TAG_APPLICATION == (child).name) {
+                            applicationTag = child
+                            actTagXml.forEach { applicationTag.addSubTag(it, false) }
+//                            for (xmlTag in actTagXml) {
+//                                applicationTag.addSubTag(xmlTag, false)
+//                            }
                             CodeStyleManager.getInstance(project).reformat(manifest)
                         }
                     }
@@ -72,7 +69,8 @@ class AndroidMainfestMagic(envi: Environment) {
 
     private fun getOrCreateTargetManifestFile(facet: AndroidFacet): PsiFile? {
         val mainfest = facet.getPrimaryManifestXml()
-        EventLogger.log("${Manifest.getMainManifest(facet)} == getOrCreateTargetManifestFile == $mainfest")
+//        val mainManifest = Manifest.getMainManifest(facet)
+        EventLogger.log("== getOrCreateTargetManifestFile == $mainfest")
         if (mainfest != null) {
             return mainfest;
         }

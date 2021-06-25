@@ -85,7 +85,8 @@ public class DefineFileDialog extends JDialog {
                         activityName.setText("BusiRecvActivity");
                         viewmodelName.setText("BusiRecvViewModel");
                         jvbName.setText("BusiViewBean");
-                        jvbLayoutName.setText("item_jvb_busi_layout");
+                        jvbLayoutName.setVisible(true);
+                        jvbLayoutName.setText("item_recv_busi_layout");
                         layoutName.setText("");
 
                         rootDirName.setVisible(true);
@@ -128,7 +129,8 @@ public class DefineFileDialog extends JDialog {
                         generageJViewBeanCheckBox.setVisible(false);
                         generageJViewBeanCheckBox.setSelected(false);
                         activityName.setText("BusiActivity");
-                        layoutName.setText("activity_busi");
+                        layoutName.setText("act_busi_jspark");
+                        layoutnameTitle.setVisible(false);
                         viewmodelName.setText("BusiViewModel");
                         jvbName.setText("UiData");
                         jvbLayoutName.setVisible(false);
@@ -188,10 +190,9 @@ public class DefineFileDialog extends JDialog {
             return;
         }
         if (generateALayoutFileCheckBox.isSelected() && TextUtils.isEmpty(layoutName.getText().trim())) {
-
             return;
         }
-        if (generageJViewBeanCheckBox.isSelected() && (TextUtils.isEmpty(jvbName.getText().trim()) || TextUtils.isEmpty(jvbLayoutName.getText().trim()))) {
+        if (generageJViewBeanCheckBox.isSelected() && (TextUtils.isEmpty(jvbName.getText().trim()))) {
             return;
         }
         TempConfig tempConfig = new TempConfig(

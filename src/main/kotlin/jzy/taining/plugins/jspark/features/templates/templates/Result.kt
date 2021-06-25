@@ -12,7 +12,7 @@ package ${templateValues.packageName}
  */
 class ${templateValues.viewBeanName} {
 
-     TODO("数据结构")
+     //TODO("数据结构")
      
 }
     """

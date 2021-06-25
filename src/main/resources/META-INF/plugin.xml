@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>jzy.taining.plugins.JSpark</id>
     <name>JSpark</name>
-    <vendor>taining</vendor>
+    <vendor>一键生成多个相关文件</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->

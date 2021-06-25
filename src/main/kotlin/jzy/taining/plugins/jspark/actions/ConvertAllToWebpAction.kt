@@ -1,6 +1,5 @@
 package jzy.taining.plugins.jspark.actions
 
-import com.android.tools.idea.rendering.webp.ConvertToWebpAction
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -10,9 +9,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
 import jzy.taining.plugins.jspark.features.templates.data.Environment
-import jzy.taining.plugins.jspark.features.templates.repository.AndroidScopeProcessor
-import jzy.taining.plugins.jspark.features.templates.repository.CheckerImpl
-import org.gradle.api.file.Directory
+import jzy.taining.plugins.jspark.features.templates.wizard.AndroidScopeProcessor
+import jzy.taining.plugins.jspark.features.templates.wizard.CheckerImpl
 
 class ConvertAllToWebpAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {

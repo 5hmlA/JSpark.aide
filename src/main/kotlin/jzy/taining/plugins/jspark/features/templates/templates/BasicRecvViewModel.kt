@@ -9,6 +9,7 @@ package ${templateValues.packageName}
 import android.app.Application
 import io.reactivex.disposables.Disposable
 import com.heytap.sporthealth.blib.basic.BasicRecvLoadMoreViewModel
+import com.heytap.sporthealth.blib.data.NetResult
 import first.lunar.yun.adapter.vb.JViewBean
 import ${templateValues.fullViewBeanName}
 
@@ -19,7 +20,7 @@ class ${templateValues.viewModelName}(application: Application?, param: Any?): B
 
     override fun onPullData(param: Any?): Disposable {
         TODO("业务逻辑请求数据")
-        return super.onPullData(param)
+        return Observable.just(NetResult.newNetResultSuccess(BusiViewBean())).subscribe(this::onNetSucceed,this::onNetError)
     }
     
 }

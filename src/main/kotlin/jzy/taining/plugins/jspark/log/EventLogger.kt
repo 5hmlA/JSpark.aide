@@ -5,7 +5,7 @@ import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.project.Project
 
 class EventLogger {
-    companion object{
+    companion object {
         private val TITLE = "JSpark"
         private val GROUP_ID = "JSpark"
 
@@ -26,7 +26,7 @@ class EventLogger {
             balloon?.hide(true)
         }
 
-        fun notify(msg: String, project: Project) {
+        fun loge(msg: String, project: Project) {
             NotificationGroup(
                 "jspark",
                 NotificationDisplayType.BALLOON,
@@ -40,4 +40,8 @@ class EventLogger {
                 .notify(project)
         }
     }
+}
+
+inline fun NotificationGroup.notify(block: NotificationGroup.() -> Unit) {
+    block()
 }

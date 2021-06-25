@@ -7,6 +7,10 @@ fun jsparkRecvActivity(templateValues: TemplateValues) =
 package ${templateValues.packageName}
 
 import com.heytap.sporthealth.blib.basic.ui.BasicRecvActivity
+import com.heytap.sporthealth.blib.basic.config
+import com.heytap.sporthealth.blib.basic.emptlayout
+import com.heytap.sporthealth.blib.basic.errlayout
+import com.heytap.sporthealth.blib.basic.state
 import ${templateValues.fullViewBeanName}
 import ${templateValues.fullViewModelName}
 import ${templateValues.applicationId}.R
@@ -18,6 +22,15 @@ import android.os.Bundle
 class ${templateValues.activityName} : BasicRecvActivity<${templateValues.viewModelName}, ${templateValues.viewBeanName}>() {
     
     override fun provideViewModel() = ${templateValues.viewModelName}::class.java
+    
+    override fun initView() {
+        super.initView()
+//      示例: DSL修改 默认的加载失败布局和加载数据为空的布局
+//      config {
+//          errlayout = R.layout.act_busi_jspark
+//          emptlayout = R.layout.act_busi_jspark
+//      }
+    }
     
 }
     """

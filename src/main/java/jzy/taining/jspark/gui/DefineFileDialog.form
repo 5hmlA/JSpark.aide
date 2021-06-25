@@ -74,11 +74,6 @@
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
           </hspacer>
-          <vspacer id="5fdc">
-            <constraints>
-              <grid row="3" column="1" row-span="2" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </vspacer>
           <component id="56cfe" class="javax.swing.JLabel" binding="activityTitle">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -123,6 +118,7 @@
               <enabled value="true"/>
               <selected value="true"/>
               <text value="Generate a Layout File"/>
+              <visible value="false"/>
             </properties>
           </component>
           <component id="cd64c" class="javax.swing.JTextField" binding="layoutName">
@@ -132,7 +128,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="activity_busi_jspark"/>
+              <text value="act_busi_jspark"/>
             </properties>
           </component>
           <component id="8c39e" class="javax.swing.JCheckBox" binding="generageJViewBeanCheckBox" default-binding="true">
@@ -142,6 +138,7 @@
             <properties>
               <selected value="true"/>
               <text value="Generage JViewBean"/>
+              <visible value="false"/>
             </properties>
           </component>
           <component id="90a26" class="javax.swing.JTextField" binding="jvbName">
@@ -179,6 +176,7 @@
             </constraints>
             <properties>
               <text value="JViewBean Layout Name"/>
+              <visible value="false"/>
             </properties>
           </component>
           <component id="34c3" class="javax.swing.JTextField" binding="jvbLayoutName">
@@ -188,7 +186,8 @@
               </grid>
             </constraints>
             <properties>
-              <text value="item_jvb_busi_layout"/>
+              <text value=""/>
+              <visible value="false"/>
             </properties>
           </component>
           <component id="29a65" class="javax.swing.JLabel" binding="layoutnameTitle">
