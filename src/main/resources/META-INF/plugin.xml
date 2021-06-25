@@ -1,32 +1,98 @@
 <idea-plugin>
-    <id>jzy.taining.plugins.JSpark</id>
-    <name>JSpark</name>
-    <vendor>taining</vendor>
+    <id>org.jetbrains.plugins.template</id>
+    <name>Template</name>
+    <vendor>JetBrains</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
     <depends>org.jetbrains.kotlin</depends>
-    <depends>org.jetbrains.android</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="jzy.taining.plugins.jspark.services.MyApplicationService"/>
-        <projectService serviceImplementation="jzy.taining.plugins.jspark.services.MyProjectService"/>
+        <applicationService serviceImplementation="org.jetbrains.plugins.template.services.MyApplicationService"/>
+        <projectService serviceImplementation="org.jetbrains.plugins.template.services.MyProjectService"/>
+<!--        <projectConfigurable parentId="tools" instance="org.company.ProjectSettingsConfigurable"-->
+<!--                             id="org.company.ProjectSettingsConfigurable" displayName="My Project Settings"-->
+<!--                             nonDefaultProject="true"/>-->
     </extensions>
 
     <applicationListeners>
-        <listener class="jzy.taining.plugins.jspark.listeners.MyProjectManagerListener"
+        <listener class="org.jetbrains.plugins.template.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+<!--    <projectListeners>-->
+<!--        <listener class="org.jetbrains.plugins.template.listeners.MyBulkFileListener"-->
+<!--                  topic="com.intellij.openapi.vfs.newvfs.BulkFileListener"/>-->
+<!--    </projectListeners>-->
+    <projectListeners>
+        <listener class="org.jetbrains.plugins.template.listeners.MyAppLifecycleListener"
+                  topic="com.intellij.ide.AppLifecycleListener"/>
+        <listener class="org.jetbrains.plugins.template.listeners.MyToolwindowListener"
+                  topic="com.intellij.openapi.wm.ex.ToolWindowManagerListener"/>
+        <listener class="org.jetbrains.plugins.template.listeners.ChangeActionListener"
+                  topic="org.jetbrains.plugins.template.topics.ChangeActionNotifier"/>
+        <listener class="org.jetbrains.plugins.template.listeners.ModuleChangeListener"
+                  topic="com.intellij.openapi.project.ModuleListener"/>
+    </projectListeners>
+
     <actions>
-        <action id="jzy.jspark.basicui" class="jzy.taining.plugins.jspark.actions.BasicTempAction" text="BasicUI"
-                description="基类UI实现模板" icon="/modules/sourceRoot.svg">
+        <action id="june.action.first" class="org.jetbrains.plugins.template.actions.FirstAction" text="first action"
+                description="学习的第一个按钮">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl alt F" second-keystroke="W"/>
+        </action>
+<!--        popup表示是否把action放在子菜单中-->
+        <group id="june.action.group.first" class="org.jetbrains.plugins.template.actions.FirstActionGroup"
+               text="first group" description="first group" popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="june.action.first"/>
+            <action id="june.action.first.ingroup" class="org.jetbrains.plugins.template.actions.FirstAction" text="first action"
+                    description="学习的第一个按钮" />
+        </group>
+        <group id="june.action.group.default" class="com.intellij.openapi.actionSystem.DefaultActionGroup"
+               text="default group" description="default group" popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="june.action.first"/>
+            <action id="june.action.first.ingroup22" class="org.jetbrains.plugins.template.actions.FirstAction" text="first action"
+                    description="学习的第一个按钮" />
+        </group>
+        <action id="com.june.java.action" class="org.jetbrains.plugins.template.actions.JavaAction" text="JavaAction"
+                description="JavaAction">
             <add-to-group group-id="NewGroup" anchor="first"/>
         </action>
-        <action id="jspark.june.webp" class="jzy.taining.plugins.jspark.actions.ConvertAllToWebpAction"
-                text="ConvertAllToWebpAction" description="ConvertAllToWebpAction">
+        <action id="com.june.action.second" class="org.jetbrains.plugins.template.actions.SecondAction"
+                text="SecondAction" description="SecondAction">
+            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="june.action.first"/>
+        </action>
+        <action id="june.edit.action.area" class="org.jetbrains.plugins.template.actions.editor.EditorAreaIllustration"
+                text="EditorAreaIllustration" description="获取 位置">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+<!--        EditorPopupMenu是在文件内 右键换出的编辑菜单-->
+        <action id="june.editor.action.replace" class="org.jetbrains.plugins.template.actions.editor.ReplaceAction"
+                text="Replace Action" description="Replace Action">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+        <group id="com.group.mainmenu" text="maingroup">
+            <!-- MainMenu顶部工具栏 只能添加group -->
+            <add-to-group group-id="MainMenu" anchor="last"/>
+        </group>
+<!--        GenerateGroup 是在文件内 Alt+insert换出的 生成代码的菜单-->
+        <action id="con.action.psi.test" class="org.jetbrains.plugins.template.actions.psi.PsiAction" text="PsiAction"
+                description="PsiAction">
+            <add-to-group group-id="com.group.mainmenu" anchor="first"/>
+            <add-to-group group-id="GenerateGroup" anchor="first"/>
             <add-to-group group-id="NewGroup" anchor="first"/>
+        </action>
+        <action id="june.psi.modify" class="org.jetbrains.plugins.template.actions.psi.ModifyPsiAction"
+                text="ModifyPsiAction" description="ModifyPsiAction">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+        </action>
+        <action id="june.ui.acttion" class="org.jetbrains.plugins.template.actions.UiAction" text="UiAction"
+                description="UiAction">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
         </action>
     </actions>
+
+
 </idea-plugin>
