@@ -6,6 +6,8 @@ import jzy.taining.plugins.jspark.features.templates.data.TempConfig;
 import org.apache.http.util.TextUtils;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.event.*;
 import java.util.Objects;
 
@@ -30,6 +32,8 @@ public class DefineFileDialog extends JDialog {
     private JTextField rootDirName;
     private JLabel rootDirTile;
     private Environment environment;
+    private String preFix = "Busi";
+    private String TempateType = "BasicActivity";
 
     public DefineFileDialog(Environment environment) {
         this.environment = environment;
@@ -51,6 +55,22 @@ public class DefineFileDialog extends JDialog {
             }
         });
 
+        rootDirName.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changeAllText();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changeAllText();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                changeAllText();
+            }
+        });
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -70,6 +90,7 @@ public class DefineFileDialog extends JDialog {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
+                    TempateType = e.getItem().toString();
                     if ("BasicRecvActivity".equals(e.getItem())) {
                         generateALayoutFileCheckBox.setVisible(false);
                         generateALayoutFileCheckBox.setSelected(false);
@@ -82,16 +103,12 @@ public class DefineFileDialog extends JDialog {
                         viewmodelTitle.setVisible(true);
                         generageJViewBeanCheckBox.setVisible(true);
                         generageJViewBeanCheckBox.setSelected(true);
-                        activityName.setText("BusiRecvActivity");
-                        viewmodelName.setText("BusiRecvViewModel");
-                        jvbName.setText("BusiViewBean");
-                        jvbLayoutName.setVisible(true);
-                        jvbLayoutName.setText("item_recv_busi_layout");
-                        layoutName.setText("");
-
                         rootDirName.setVisible(true);
-                        rootDirName.setText("busi");
                         rootDirTile.setVisible(true);
+                        jvbLayoutName.setVisible(true);
+
+                        rootDirName.setText(preFix);
+
                     } else if ("JViewBean".equals(e.getItem())) {
                         generateALayoutFileCheckBox.setVisible(false);
                         layoutName.setVisible(false);
@@ -105,17 +122,13 @@ public class DefineFileDialog extends JDialog {
                         generageJViewBeanCheckBox.setSelected(false);
 
                         jvbLayoutName.setVisible(true);
-                        jvbLayoutName.setText("item_jvb_busi_layout");
                         jvbName.setVisible(true);
-                        jvbName.setText("BusiViewBean");
                         jvbLayoutTitle.setVisible(true);
                         jvbNameTitle.setVisible(true);
                         rootDirName.setVisible(false);
-                        rootDirName.setText("");
-                        activityName.setText("");
-                        layoutName.setText("");
-                        viewmodelName.setText("");
                         rootDirTile.setVisible(false);
+
+                        rootDirName.setText("");
                     } else {
                         generateALayoutFileCheckBox.setSelected(true);
                         generateALayoutFileCheckBox.setVisible(true);
@@ -128,17 +141,12 @@ public class DefineFileDialog extends JDialog {
                         viewmodelTitle.setVisible(true);
                         generageJViewBeanCheckBox.setVisible(false);
                         generageJViewBeanCheckBox.setSelected(false);
-                        activityName.setText("BusiActivity");
-                        layoutName.setText("act_busi_jspark");
-                        layoutnameTitle.setVisible(false);
-                        viewmodelName.setText("BusiViewModel");
-                        jvbName.setText("UiData");
-                        jvbLayoutName.setVisible(false);
-                        jvbLayoutName.setText("");
-
                         rootDirName.setVisible(true);
-                        rootDirName.setText("busi");
                         rootDirTile.setVisible(true);
+                        layoutnameTitle.setVisible(false);
+                        jvbLayoutName.setVisible(false);
+
+                        rootDirName.setText(preFix);
                     }
                 }
             }
@@ -185,6 +193,36 @@ public class DefineFileDialog extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
+    private void changeAllText() {
+        String text = rootDirName.getText();
+        if (!TextUtils.isEmpty(text)) {
+            preFix = text;
+        } else {
+            preFix = "Busi";
+        }
+
+        updateText(jvbLayoutName, "item_recv_" + preFix.toLowerCase() + "_layout");
+        if ("BasicActivity".equals(TempateType)) {
+            updateText(layoutName, "act_" + preFix.toLowerCase() + "_jspark");
+            updateText(jvbName, preFix + "Bean");
+            updateText(activityName, preFix + "Activity");
+            updateText(viewmodelName, preFix + "ViewModel");
+        } else {
+            updateText(jvbName, preFix + "ViewBean");
+            updateText(layoutName, "item_recv_" + preFix.toLowerCase() + "_layout");
+            updateText(activityName, preFix + "RecvActivity");
+            updateText(viewmodelName, preFix + "RecvViewModel");
+        }
+    }
+
+    private void updateText(JTextField textField, String text) {
+        if (textField.isVisible()) {
+            textField.setText(text);
+        } else {
+            textField.setText("");
+        }
+    }
+
     private void onOK() {
         if (TextUtils.isEmpty(activityName.getText().trim()) && TextUtils.isEmpty(jvbName.getText().trim())) {
             return;
@@ -203,7 +241,7 @@ public class DefineFileDialog extends JDialog {
                 jvbName.getText().trim(),
                 jvbLayoutName.getText().trim(),
                 choseLanguage.getSelectedItem().toString(),
-                Objects.equals(tempTypeChoser.getSelectedItem().toString(),"BasicRecvActivity"));
+                Objects.equals(tempTypeChoser.getSelectedItem().toString(), "BasicRecvActivity"));
         new TemplatelRealize().generateFiles(environment, tempConfig);
         dispose();
     }

@@ -1,12 +1,12 @@
 package jzy.taining.plugins.jspark.features.templates.data
 
 data class TempConfig(
-    val rootDir: String,
-    val activityName: String,
-    val viewModuleName: String,
-    val layoutName: String,
-    val jvbName: String,
-    val jvbLayoutName: String,
-    val language: String,
-    val isRecv: Boolean
+    var rootDir: String = "",
+    var activityName: String = "",
+    var viewModuleName: String = "",
+    var layoutName: String = "",
+    var jvbName: String = "",
+    var jvbLayoutName: String = "",
+    var language: String = "",
+    var isRecv: Boolean = false
 )

@@ -1,22 +1,27 @@
 package jzy.taining.plugins.jspark.features.templates.wizard
 
-import android.content.pm.PackageParser
+import android.Manifest
 import com.android.tools.idea.model.AndroidModel
 import com.android.tools.idea.npw.project.getPackageForApplication
 import com.android.tools.idea.res.ResourceFolderRegistry
 import com.google.common.collect.Iterables
+import com.intellij.facet.FacetManager
 import com.intellij.ide.fileTemplates.FileTemplateManager
+import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.openapi.vfs.ReadonlyStatusHandler
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.*
 import com.intellij.psi.xml.XmlFile
 import jzy.taining.plugins.jspark.features.templates.data.Environment
 import org.jetbrains.android.facet.AndroidFacet
+import org.jetbrains.android.facet.AndroidRootUtil
 import org.jetbrains.android.facet.ResourceFolderManager
 import org.jetbrains.android.facet.SourceProviderManager
+import org.jetbrains.android.util.AndroidUtils
 import java.util.*
-import kotlin.collections.HashSet
+
 
 class AndroidScopeProcessor(val envi: Environment) {
 
@@ -24,7 +29,7 @@ class AndroidScopeProcessor(val envi: Environment) {
 
     val applicationid: String by lazy(LazyThreadSafetyMode.NONE) {
 //        AndroidModel.get(facet)?.applicationId ?: "spark"
-        facet.getPackageForApplication()
+        facet.getPackageForApplication()!!
     }
 //        fun getApplicationId() = AndroidModel.get(facet)!!.applicationId
 
@@ -47,6 +52,11 @@ class AndroidScopeProcessor(val envi: Environment) {
         }
 
         println(JavaDirectoryService.getInstance().getPackage(psiElement as PsiDirectory))
+
+//        val facet: AndroidFacet = FacetManager.getInstance(module).getFacetsByType(AndroidFacet.ID)
+        val manifestFile: VirtualFile = AndroidRootUtil.getPrimaryManifestFile(facet)!!
+        !ReadonlyStatusHandler.ensureFilesWritable(facet.module.project, manifestFile)
+//        val manifest: Manifest = AndroidUtils.loadDomElement(facet.module, manifestFile, Manifest::class.java)
     }
 
     fun findLayoutDir() =

@@ -15,6 +15,7 @@ import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import jzy.taining.plugins.jspark.features.templates.data.Environment
 import jzy.taining.plugins.jspark.log.EventLogger
+import org.gradle.api.internal.file.archive.ZipCopyAction
 import org.jetbrains.android.AndroidFileTemplateProvider
 import org.jetbrains.android.dom.manifest.Manifest
 import org.jetbrains.android.dom.manifest.getPrimaryManifestXml

@@ -7,6 +7,7 @@
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
+<!--    <depends>com.intellij.modules.androidstudio</depends>-->
     <depends>org.jetbrains.kotlin</depends>
     <depends>org.jetbrains.android</depends>
 
@@ -24,9 +25,17 @@
                 description="基类UI实现模板" icon="/modules/sourceRoot.svg">
             <add-to-group group-id="NewGroup" anchor="first"/>
         </action>
+        <action id="jzy.jspark.sparkui" class="jzy.taining.plugins.jspark.actions.DartTempAction" text="SparkUI"
+                description="基类UI实现模板" icon="/modules/sourceRoot.svg">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+        </action>
         <action id="jspark.june.webp" class="jzy.taining.plugins.jspark.actions.ConvertAllToWebpAction"
                 text="ConvertAllToWebpAction" description="ConvertAllToWebpAction">
             <add-to-group group-id="NewGroup" anchor="first"/>
+        </action>
+        <action id="taining.jzy.export.project" class="jzy.taining.plugins.jspark.actions.ProjectExport"
+                text="ProjectExport" description="ProjectExport">
+            <keyboard-shortcut keymap="$default" first-keystroke="alt shift P" second-keystroke="E"/>
         </action>
     </actions>
 </idea-plugin>

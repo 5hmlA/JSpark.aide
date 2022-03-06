@@ -6,11 +6,25 @@ import com.intellij.psi.codeStyle.CodeStyleManager
 import jzy.taining.plugins.jspark.features.templates.data.Environment
 import jzy.taining.plugins.jspark.log.EventLogger
 import org.jetbrains.kotlin.idea.KotlinLanguage
+import org.jetbrains.uast.values.UBooleanConstant
 
 interface FileCreater {
-    fun createFile(environment: Environment, rootDir: String?, fileName: String, fileExtension: String, content: String)
+    fun createFile(
+        environment: Environment,
+        rootDir: String?,
+        fileName: String,
+        fileExtension: String,
+        content: String,
+        reformat: Boolean = true
+    )
 
-    fun createLayoutFile(resDirectionality: PsiDirectory, rootDir: String?, fileName: String, fileExtension: String, content: String)
+    fun createLayoutFile(
+        resDirectionality: PsiDirectory,
+        rootDir: String?,
+        fileName: String,
+        fileExtension: String,
+        content: String
+    )
 }
 
 class FileCreaterImpl : FileCreater {
@@ -19,7 +33,8 @@ class FileCreaterImpl : FileCreater {
         rootDir: String?,
         name: String,
         fileExtension: String,
-        content: String
+        content: String,
+        reformat: Boolean
     ) {
         val fileName = "$name$fileExtension"
         val createFileFromText = PsiFileFactory.getInstance(environment.project)
@@ -28,7 +43,9 @@ class FileCreaterImpl : FileCreater {
 //            environment.psiDirectory.findSubdirectory(rootDir!!)?.add(createFileFromText)
 //                ?: environment.psiDirectory.createSubdirectory(rootDir).add(createFileFromText)
 //        } ?: environment.psiDirectory.add(createFileFromText)
-        CodeStyleManager.getInstance(environment.project).reformat(createFileFromText)
+        if (reformat) {
+            CodeStyleManager.getInstance(environment.project).reformat(createFileFromText)
+        }
         println(environment.psiDirectory.findFile(fileName))
         try {
             if (rootDir.isNullOrEmpty()) {
@@ -43,6 +60,7 @@ class FileCreaterImpl : FileCreater {
             EventLogger.log("$ error is ${e.stackTrace}")
         }
     }
+
     override fun createLayoutFile(
         resDirectionality: PsiDirectory,
         rootDir: String?,

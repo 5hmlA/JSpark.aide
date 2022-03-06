@@ -11,7 +11,7 @@ import jzy.taining.plugins.jspark.features.templates.wizard.FileCreaterImpl
 import jzy.taining.plugins.jspark.log.EventLogger
 import org.apache.http.util.TextUtils
 
-val language = mapOf<String, String>(Constants.java to Constants.dot_java, Constants.kotlin to Constants.dot_kt)
+val language = mapOf<String, String>(Constants.java to Constants.dot_java, Constants.kotlin to Constants.dot_kt, Constants.dart to Constants.dot_dart)
 
 class CreateFilesByTemplate : TemplateFileFactory {
     val tag = CreateFilesByTemplate::class.qualifiedName
@@ -37,6 +37,7 @@ class CreateFilesByTemplate : TemplateFileFactory {
                 viewBeanLayoutName = tempConfig.jvbLayoutName
                 subDirName = tempConfig.rootDir
                 extension = language[tempConfig.language.toLowerCase()]!!
+//                extension = language[tempConfig.language.lowercase()]!!
                 layoutDirectory = androidScope.findLayoutDir()
             }
 
