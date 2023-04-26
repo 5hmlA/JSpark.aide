@@ -1,12 +1,8 @@
 package com.android.tools.idea.actions;
 
-import android.util.Log;
 import com.android.SdkConstants;
 import com.android.tools.idea.gradle.project.GradleProjectInfo;
-import com.android.tools.idea.gradle.project.model.AndroidModuleModel;
-import com.android.tools.idea.gradle.project.model.JavaModuleModel;
 import com.android.tools.idea.gradle.util.GradleUtil;
-import com.android.tools.idea.profiling.capture.CaptureService;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileTypes.FileTypeManager;
@@ -22,9 +18,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileWrapper;
 import com.intellij.util.io.Compressor;
-import jzy.taining.plugins.jspark.log.EventLogger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,7 +26,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.function.BiPredicate;
 
@@ -46,15 +39,14 @@ public class ExportProject {
         Task.Backgroundable task = new Task.Backgroundable(project, "S P Z") {
             @Override
             public void run(@NotNull ProgressIndicator indicator) {
-                zipFile.setLastModified(System.currentTimeMillis());
+//                Files.setLastModifiedTime()
                 save(zipFile, project, indicator);
+                zipFile.setLastModified(System.currentTimeMillis());
             }
         };
         ProgressManager.getInstance().runProcessWithProgressAsynchronously(task, new BackgroundableProcessIndicator(task));
     }
 
-
-    // 2021.3.1
     /// com.android.tools.idea.actions.ExportProjectZip
     static void save(@NotNull File zipFile, @NotNull Project project, @Nullable ProgressIndicator indicator) {
         Set<File> allRoots = new HashSet<>();
@@ -72,7 +64,6 @@ public class ExportProject {
             excludes.add(new File(basePath, SdkConstants.DOT_GRADLE));
             excludes.add(new File(basePath, GradleUtil.BUILD_DIR_DEFAULT_NAME));
             excludes.add(new File(basePath, Project.DIRECTORY_STORE_FOLDER));
-            excludes.add(new File(basePath, CaptureService.FD_CAPTURES));
         }
 
         for (Module module : ModuleManager.getInstance(project).getModules()) {
@@ -145,8 +136,8 @@ public class ExportProject {
                     }
                 }
             }
-            Logger.getInstance(ExportProjectZip.class).info(" >>>>>>>> okk ======== ");
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             Logger.getInstance(ExportProjectZip.class).info("error making zip", ex);
             ApplicationManager.getApplication().invokeLater(() -> Messages.showErrorDialog(project, "Error: " + ex, "Error!"));
         }
