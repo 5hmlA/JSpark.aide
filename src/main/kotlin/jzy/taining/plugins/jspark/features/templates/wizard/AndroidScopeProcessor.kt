@@ -1,13 +1,11 @@
 package jzy.taining.plugins.jspark.features.templates.wizard
 
-import android.Manifest
 import com.android.tools.idea.model.AndroidModel
-import com.android.tools.idea.npw.project.getPackageForApplication
+import com.android.tools.idea.model.queryPackageNameFromManifestIndex
+import com.android.tools.idea.npw.project.getPackageForPath
 import com.android.tools.idea.res.ResourceFolderRegistry
 import com.google.common.collect.Iterables
-import com.intellij.facet.FacetManager
 import com.intellij.ide.fileTemplates.FileTemplateManager
-import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.ReadonlyStatusHandler
@@ -19,7 +17,6 @@ import org.jetbrains.android.facet.AndroidFacet
 import org.jetbrains.android.facet.AndroidRootUtil
 import org.jetbrains.android.facet.ResourceFolderManager
 import org.jetbrains.android.facet.SourceProviderManager
-import org.jetbrains.android.util.AndroidUtils
 import java.util.*
 
 
@@ -29,7 +26,7 @@ class AndroidScopeProcessor(val envi: Environment) {
 
     val applicationid: String by lazy(LazyThreadSafetyMode.NONE) {
 //        AndroidModel.get(facet)?.applicationId ?: "spark"
-        facet.getPackageForApplication()!!
+        facet.queryPackageNameFromManifestIndex()!!
     }
 //        fun getApplicationId() = AndroidModel.get(facet)!!.applicationId
 

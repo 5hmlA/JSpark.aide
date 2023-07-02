@@ -1,7 +1,6 @@
 package jzy.taining.plugins.jspark.features.templates.wizard
 
 import com.android.SdkConstants
-import com.android.tools.idea.npw.project.getPackageForApplication
 import com.google.common.collect.Iterables
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.vfs.VfsUtil
@@ -15,9 +14,7 @@ import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import jzy.taining.plugins.jspark.features.templates.data.Environment
 import jzy.taining.plugins.jspark.log.EventLogger
-import org.gradle.api.internal.file.archive.ZipCopyAction
 import org.jetbrains.android.AndroidFileTemplateProvider
-import org.jetbrains.android.dom.manifest.Manifest
 import org.jetbrains.android.dom.manifest.getPrimaryManifestXml
 import org.jetbrains.android.facet.AndroidFacet
 import org.jetbrains.android.facet.SourceProviderManager

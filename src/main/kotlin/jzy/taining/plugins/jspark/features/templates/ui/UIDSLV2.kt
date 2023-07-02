@@ -1,18 +1,17 @@
 package jzy.taining.plugins.jspark.features.templates.ui
 
-import com.android.tools.idea.res.changeValueResource
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.openapi.fileTypes.PlainTextFileType
-import com.intellij.openapi.util.IconLoader
+import com.intellij.openapi.util.IconLoader.getIcon
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.JBTextField
+import com.intellij.util.ReflectionUtil
 import com.intellij.util.ui.JBDimension
 import com.intellij.util.ui.JBUI
-import org.jetbrains.kotlin.idea.core.util.onTextChange
 import java.awt.*
 import java.awt.event.*
 import java.net.URI
@@ -269,7 +268,7 @@ fun Any.jGridLayout(rows: Int, columns: Int, init: JPanel.() -> Unit = {}): JPan
  * generate a icon component
  */
 fun Any.jIcon(iconPath: String, init: JLabel.() -> Unit = {}): JLabel {
-    val icon = IconLoader.getIcon(iconPath)
+    val icon = getIcon(iconPath, ReflectionUtil.getGrandCallerClass()!!.classLoader)
     return JBLabel(icon).also { it.init() }
 }
 
