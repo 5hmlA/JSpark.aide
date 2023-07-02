@@ -1,8 +1,22 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
+import org.jetbrains.kotlin.cli.common.isWindows
 
 fun properties(key: String) = providers.gradleProperty(key)
 fun environment(key: String) = providers.environmentVariable(key)
+
+val isMac = System.getProperty("os.name").toLowerCase().contains("win")
+val mac = System.getProperty("os.name").toLowerCase().contains("mac")
+val andodStudio_path_window = file("C:/path/to/IntelliJ IDEA")
+val andodStudio_path_mac = file("/Applications/Android Studio.app/Contents")
+
+
+//如何运行插件 tasks->intellij->runIde
+task("testOsName") {
+    doLast {
+        println("====== running on os = ${System.getProperty("os.name")}")
+    }
+}
 
 plugins {
     id("java") // Java support
@@ -79,7 +93,7 @@ tasks {
             val start = "<!-- Plugin description -->"
             val end = "<!-- Plugin description end -->"
 
-            with (it.lines()) {
+            with(it.lines()) {
                 if (!containsAll(listOf(start, end))) {
                     throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
                 }
@@ -123,5 +137,17 @@ tasks {
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels = properties("pluginVersion").map { listOf(it.split('-').getOrElse(1) { "default" }.split('.').first()) }
+    }
+
+    runIde {
+        // Absolute path to installed target 3.5 Android Studio to use as
+        // IDE Development Instance (the "Contents" directory is macOS specific):
+//        指定 IntelliJ IDEA 安装目录
+        if (isWindows && andodStudio_path_window.exists()) {
+            ideDir.set(andodStudio_path_window)
+        }
+        if (isMac && andodStudio_path_mac.exists()) {
+            ideDir.set(andodStudio_path_mac)
+        }
     }
 }

@@ -23,8 +23,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiPredicate;
@@ -39,9 +43,15 @@ public class ExportProject {
         Task.Backgroundable task = new Task.Backgroundable(project, "S P Z") {
             @Override
             public void run(@NotNull ProgressIndicator indicator) {
-//                Files.setLastModifiedTime()
                 save(zipFile, project, indicator);
-                zipFile.setLastModified(System.currentTimeMillis());
+                //必须在后面修改时间 生成文件后才可以
+                try {
+                    LocalDateTime dateTime = LocalDateTime.now();
+                    FileTime fileTime = FileTime.from(dateTime.toInstant(ZoneOffset.UTC));
+                    Files.setLastModifiedTime(zipFile.toPath(), fileTime);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         };
         ProgressManager.getInstance().runProcessWithProgressAsynchronously(task, new BackgroundableProcessIndicator(task));
@@ -130,14 +140,12 @@ public class ExportProject {
                     String childRelativePath = (FileUtil.filesEqual(commonRoot, basePath) ? commonRoot.getName() + '/' : "") + child.getName();
                     if (child.isDirectory()) {
                         zip.addDirectory(childRelativePath, child);
-                    }
-                    else {
+                    } else {
                         zip.addFile(childRelativePath, child);
                     }
                 }
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getInstance(ExportProjectZip.class).info("error making zip", ex);
             ApplicationManager.getApplication().invokeLater(() -> Messages.showErrorDialog(project, "Error: " + ex, "Error!"));
         }
