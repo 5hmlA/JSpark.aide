@@ -4,7 +4,14 @@
     <vendor email="jonas.jzy@gmail.com">ZuYun</vendor>
     <vendor>一键生成多个相关文件</vendor>
     <description><![CDATA[
-    一些工具快捷键
+Provides support for android studio.
+The support includes:
+<ul>
+  <li>create files</li>
+  <li>make files</li>
+</ul>
+For more information visit the
+<a href="https://github.com/5hmlA/JSpark.aide</a>.
 ]]></description>
     <change-notes><![CDATA[
 <h2>功能</h2>
