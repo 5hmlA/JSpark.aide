@@ -13,7 +13,6 @@ import jzy.taining.plugins.jspark.features.templates.wizard.CheckerImpl
 
 class DartTempAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
-
         val psiElement = e.getData(CommonDataKeys.PSI_ELEMENT)
 
         if (psiElement is PsiDirectory) {

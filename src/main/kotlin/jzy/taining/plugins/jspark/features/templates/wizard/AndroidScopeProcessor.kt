@@ -16,7 +16,7 @@ import jzy.taining.plugins.jspark.features.templates.data.Environment
 import org.jetbrains.android.facet.AndroidFacet
 import org.jetbrains.android.facet.AndroidRootUtil
 import org.jetbrains.android.facet.ResourceFolderManager
-import org.jetbrains.android.facet.SourceProviderManager
+import com.android.tools.idea.projectsystem.SourceProviderManager
 import java.util.*
 
 
@@ -38,7 +38,7 @@ class AndroidScopeProcessor(val envi: Environment) {
         val resDir = ResourceFolderManager.getInstance(facet!!).folders[0]
         val repo = ResourceFolderRegistry.getInstance(envi.project)[facet!!, resDir]
 //        println(facet.getPackageForApplication())
-        val touchedXmlFiles: Set<XmlFile> = HashSet()
+//        val touchedXmlFiles: Set<XmlFile> = HashSet()
 
         println(AndroidModel.get(facet)!!.applicationId)
 

@@ -6,6 +6,11 @@ import jzy.taining.jspark.gui.DefineFileDialog
 import jzy.taining.plugins.jspark.features.templates.data.Environment
 import jzy.taining.plugins.jspark.features.templates.wizard.CheckerImpl
 
+//"Empty Activity"搜这个关键字看Android插件如何做的
+//https://github.com/gmatyszczak/screen-generator-plugin
+//https://github.com/takahirom/android-postfix-plugin
+//https://github.com/balsikandar/Android-Studio-Plugins
+//https://proandroiddev.com/how-i-automated-creating-files-for-a-new-screen-with-my-own-android-studio-plugin-5d54b14ba6fa
 class BasicTempAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
 

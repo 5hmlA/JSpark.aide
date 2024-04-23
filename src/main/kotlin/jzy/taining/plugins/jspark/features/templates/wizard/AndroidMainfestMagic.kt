@@ -1,8 +1,12 @@
 package jzy.taining.plugins.jspark.features.templates.wizard
 
+import com.android.AndroidProjectTypes
 import com.android.SdkConstants
+import com.android.tools.idea.model.AndroidModel
 import com.google.common.collect.Iterables
 import com.intellij.openapi.command.WriteCommandAction
+import com.intellij.openapi.module.ModuleManager
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VfsUtil
 import com.intellij.openapi.vfs.VirtualFileManager
 import com.intellij.psi.PsiFile
@@ -17,8 +21,28 @@ import jzy.taining.plugins.jspark.log.EventLogger
 import org.jetbrains.android.AndroidFileTemplateProvider
 import org.jetbrains.android.dom.manifest.getPrimaryManifestXml
 import org.jetbrains.android.facet.AndroidFacet
-import org.jetbrains.android.facet.SourceProviderManager
+import com.android.tools.idea.projectsystem.SourceProviderManager
 
+
+private fun getApplicationId(project: Project): String? {
+    if (project.isDisposed) {
+        return null
+    }
+    val moduleManager = ModuleManager.getInstance(project)
+    for (module in moduleManager.modules) {
+        if (module.isDisposed) {
+            continue
+        }
+        val androidModel = AndroidModel.get(module)
+        if (androidModel != null) {
+            val faucet = AndroidFacet.getInstance(module)
+            if (faucet != null && faucet.properties.PROJECT_TYPE == AndroidProjectTypes.PROJECT_TYPE_APP) {
+                return androidModel.applicationId
+            }
+        }
+    }
+    return null
+}
 
 class AndroidMainfestMagic(envi: Environment) {
     val facet = AndroidFacet.getInstance(envi.psiDirectory)!!
