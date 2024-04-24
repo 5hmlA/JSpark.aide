@@ -1,7 +1,6 @@
 package jzy.taining.plugins.jspark.log
 
 import com.intellij.notification.*
-import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.project.Project
 
 class EventLogger {
@@ -27,16 +26,8 @@ class EventLogger {
         }
 
         fun loge(msg: String, project: Project) {
-            NotificationGroup(
-                "jspark",
-                NotificationDisplayType.BALLOON,
-                true,
-                null,
-                null,
-                null,
-                PluginId.getId("jzy.taining.plugins.JSpark")
-            )
-                .createNotification(msg, NotificationType.INFORMATION)
+            val notificationGroup = NotificationGroupManager.getInstance().getNotificationGroup("jspark")
+            notificationGroup.createNotification(msg, NotificationType.INFORMATION)
                 .notify(project)
         }
     }

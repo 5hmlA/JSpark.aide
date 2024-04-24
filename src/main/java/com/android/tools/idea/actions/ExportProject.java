@@ -1,39 +1,19 @@
 package com.android.tools.idea.actions;
 
-import com.android.SdkConstants;
-import com.android.tools.idea.gradle.project.GradleProjectInfo;
-import com.android.tools.idea.gradle.util.GradleUtil;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.fileTypes.FileTypeManager;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.progress.impl.BackgroundableProcessIndicator;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ModuleRootManager;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VfsUtilCore;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.util.io.Compressor;
+import jzy.taining.plugins.jspark.log.EventLogger;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.BiPredicate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class ExportProject {
 
@@ -45,26 +25,27 @@ public class ExportProject {
         Task.Backgroundable task = new Task.Backgroundable(project, "S P Z") {
             @Override
             public void run(@NotNull ProgressIndicator indicator) {
-
-//                ExportProjectZip.save(zipFile, project, indicator);
-//                save(zipFile, project, indicator);
-                //必须在后面修改时间 生成文件后才可以
                 try {
                     Class<?> aClass = Class.forName("com.android.tools.idea.actions.ExportProjectZip");
                     Method save = aClass.getDeclaredMethod("save", File.class, Project.class, ProgressIndicator.class);
                     save.setAccessible(true);
                     save.invoke(null,zipFile, project, indicator);
-                    LocalDateTime dateTime = LocalDateTime.now();
-                    FileTime fileTime = FileTime.from(dateTime.toInstant(ZoneOffset.UTC));
+                    // 获取东八区的时区
+                    ZoneId zoneId = ZoneId.of("Asia/Singapore");
+                    // 获取东八区的当前时间
+                    ZonedDateTime dateTime = ZonedDateTime.now(zoneId);
+                    // 将ZonedDateTime转换为FileTime
+                    FileTime fileTime = FileTime.from(dateTime.toInstant());
                     Files.setLastModifiedTime(zipFile.toPath(), fileTime);
-                    try {
-                        // 获取Desktop对象
-                        Desktop desktop = Desktop.getDesktop();
-                        // 打开文件夹
-                        desktop.open(parentFile);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    EventLogger.Companion.log("ooook");
+//                    try {
+//                         //获取Desktop对象
+//                        Desktop desktop = Desktop.getDesktop();
+//                         //打开文件夹
+//                        desktop.open(parentFile);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
