@@ -21,10 +21,10 @@
         <projectService serviceImplementation="jzy.taining.plugins.jspark.services.MyProjectService"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="jzy.taining.plugins.jspark.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+<!--    <applicationListeners>-->
+<!--        <listener class="jzy.taining.plugins.jspark.listeners.MyProjectManagerListener"-->
+<!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
+<!--    </applicationListeners>-->
     <actions>
         <action id="jzy.jspark.basicui" class="jzy.taining.plugins.jspark.actions.BasicTempAction" text="BasicUI"
                 description="基类UI实现模板" icon="/modules/sourceRoot.svg">

@@ -22,7 +22,9 @@ import com.intellij.util.io.Compressor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,6 +57,14 @@ public class ExportProject {
                     LocalDateTime dateTime = LocalDateTime.now();
                     FileTime fileTime = FileTime.from(dateTime.toInstant(ZoneOffset.UTC));
                     Files.setLastModifiedTime(zipFile.toPath(), fileTime);
+                    try {
+                        // 获取Desktop对象
+                        Desktop desktop = Desktop.getDesktop();
+                        // 打开文件夹
+                        desktop.open(parentFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

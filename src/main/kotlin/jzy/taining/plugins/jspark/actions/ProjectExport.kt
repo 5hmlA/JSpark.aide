@@ -14,11 +14,11 @@ class ProjectExport : AnAction() {
     var path = "/ipo/0labb/app/src/main/assets"
     override fun actionPerformed(e: AnActionEvent) {
         e.project?.let {
-            val module = PlatformCoreDataKeys.MODULE.getData(e.dataContext) ?: return
-            val facet = AndroidFacet.getInstance(module) ?: return
-            if (AndroidModel.get(facet) == null) {
-                return
-            }
+//            val module = PlatformCoreDataKeys.MODULE.getData(e.dataContext) ?: return
+//            val facet = AndroidFacet.getInstance(module) ?: return
+//            if (AndroidModel.get(facet) == null) {
+//                return
+//            }
             var targetDirectory = CommonDataKeys.VIRTUAL_FILE.getData(e.dataContext)
             // If the user selected a simulated folder entry (eg "Manifests"), there will be no target directory
             if (targetDirectory != null && !targetDirectory.isDirectory) {
