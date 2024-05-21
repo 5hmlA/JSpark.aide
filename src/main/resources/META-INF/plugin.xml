@@ -14,7 +14,7 @@
     <depends>com.intellij.modules.java</depends>
     <!--    <depends>com.intellij.modules.androidstudio</depends>-->
     <depends>org.jetbrains.kotlin</depends>
-    <depends>org.jetbrains.android</depends>
+<!--      <depends>org.jetbrains.android</depends>-->
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="jzy.taining.plugins.jspark.services.MyApplicationService"/>

@@ -2,7 +2,6 @@ package jzy.taining.plugins.jspark.features.templates.wizard
 
 import com.android.tools.idea.model.AndroidModel
 import com.android.tools.idea.model.queryPackageNameFromManifestIndex
-import com.android.tools.idea.npw.project.getPackageForPath
 import com.android.tools.idea.res.ResourceFolderRegistry
 import com.google.common.collect.Iterables
 import com.intellij.ide.fileTemplates.FileTemplateManager
@@ -11,12 +10,11 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.ReadonlyStatusHandler
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.*
-import com.intellij.psi.xml.XmlFile
 import jzy.taining.plugins.jspark.features.templates.data.Environment
 import org.jetbrains.android.facet.AndroidFacet
 import org.jetbrains.android.facet.AndroidRootUtil
 import org.jetbrains.android.facet.ResourceFolderManager
-import com.android.tools.idea.projectsystem.SourceProviderManager
+import org.jetbrains.android.facet.SourceProviderManager
 import java.util.*
 
 

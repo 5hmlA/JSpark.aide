@@ -25,6 +25,10 @@ public class ExportProject {
         Task.Backgroundable task = new Task.Backgroundable(project, "S P Z") {
             @Override
             public void run(@NotNull ProgressIndicator indicator) {
+
+//                ExportProjectZip.save(zipFile, project, indicator);
+//                save(zipFile, project, indicator);
+                //必须在后面修改时间 生成文件后才可以
                 try {
                     Class<?> aClass = Class.forName("com.android.tools.idea.actions.ExportProjectZip");
                     Method save = aClass.getDeclaredMethod("save", File.class, Project.class, ProgressIndicator.class);
