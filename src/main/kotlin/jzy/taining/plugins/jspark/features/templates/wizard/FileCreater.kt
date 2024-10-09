@@ -1,12 +1,11 @@
 package jzy.taining.plugins.jspark.features.templates.wizard;
 
+import com.intellij.lang.Language.findLanguageByID
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiFileFactory
 import com.intellij.psi.codeStyle.CodeStyleManager
 import jzy.taining.plugins.jspark.features.templates.data.Environment
 import jzy.taining.plugins.jspark.log.EventLogger
-import org.jetbrains.kotlin.idea.KotlinLanguage
-import org.jetbrains.uast.values.UBooleanConstant
 
 interface FileCreater {
     fun createFile(
@@ -38,7 +37,7 @@ class FileCreaterImpl : FileCreater {
     ) {
         val fileName = "$name$fileExtension"
         val createFileFromText = PsiFileFactory.getInstance(environment.project)
-            .createFileFromText(fileName, KotlinLanguage.INSTANCE, content)
+            .createFileFromText(fileName, findLanguageByID("kotlin")!!, content)
 //        rootDir?.apply {
 //            environment.psiDirectory.findSubdirectory(rootDir!!)?.add(createFileFromText)
 //                ?: environment.psiDirectory.createSubdirectory(rootDir).add(createFileFromText)
@@ -70,7 +69,7 @@ class FileCreaterImpl : FileCreater {
     ) {
         val fileName = "$layoutName$fileExtension"
         val createFileFromText = PsiFileFactory.getInstance(resDirectionality.project)
-            .createFileFromText(fileName, KotlinLanguage.INSTANCE, content)
+            .createFileFromText(fileName, findLanguageByID("kotlin")!!, content)
         try {
             if (rootDir.isNullOrEmpty()) {
                 resDirectionality.findFile(fileName)?.delete()

@@ -2,6 +2,7 @@ package jzy.taining.plugins.jspark.features.templates.wizard
 
 import com.android.tools.idea.model.AndroidModel
 import com.android.tools.idea.model.queryPackageNameFromManifestIndex
+import com.android.tools.idea.projectsystem.SourceProviderManager
 import com.android.tools.idea.res.ResourceFolderRegistry
 import com.google.common.collect.Iterables
 import com.intellij.ide.fileTemplates.FileTemplateManager
@@ -14,7 +15,6 @@ import jzy.taining.plugins.jspark.features.templates.data.Environment
 import org.jetbrains.android.facet.AndroidFacet
 import org.jetbrains.android.facet.AndroidRootUtil
 import org.jetbrains.android.facet.ResourceFolderManager
-import org.jetbrains.android.facet.SourceProviderManager
 import java.util.*
 
 
@@ -45,8 +45,6 @@ class AndroidScopeProcessor(val envi: Environment) {
         for ((key, value) in properties.entries) {
             println("$key === $value")
         }
-
-        println(JavaDirectoryService.getInstance().getPackage(psiElement as PsiDirectory))
 
 //        val facet: AndroidFacet = FacetManager.getInstance(module).getFacetsByType(AndroidFacet.ID)
         val manifestFile: VirtualFile = AndroidRootUtil.getPrimaryManifestFile(facet)!!

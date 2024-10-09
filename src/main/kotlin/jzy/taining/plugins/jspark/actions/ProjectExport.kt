@@ -11,7 +11,7 @@ import java.io.File
 
 class ProjectExport : AnAction() {
 
-    var path = "/ipo/0labb/app/src/main/assets"
+    var path = "${System.getProperty("user.home")}/ipo/0labb/app/src/main/assets"
     override fun actionPerformed(e: AnActionEvent) {
         e.project?.let {
 //            val module = PlatformCoreDataKeys.MODULE.getData(e.dataContext) ?: return

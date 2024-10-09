@@ -3,6 +3,7 @@ package jzy.taining.plugins.jspark.features.templates.wizard
 import com.android.AndroidProjectTypes
 import com.android.SdkConstants
 import com.android.tools.idea.model.AndroidModel
+import com.android.tools.idea.projectsystem.SourceProviderManager
 import com.google.common.collect.Iterables
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.module.ModuleManager
@@ -21,7 +22,6 @@ import jzy.taining.plugins.jspark.log.EventLogger
 import org.jetbrains.android.AndroidFileTemplateProvider
 import org.jetbrains.android.dom.manifest.getPrimaryManifestXml
 import org.jetbrains.android.facet.AndroidFacet
-import org.jetbrains.android.facet.SourceProviderManager
 
 
 private fun getApplicationId(project: Project): String? {

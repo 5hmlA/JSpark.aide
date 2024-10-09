@@ -3,6 +3,7 @@ package jzy.taining.plugins.jspark.actions
 import com.android.tools.idea.actions.ExportProjectZip
 import com.android.tools.idea.rendering.webp.ConvertToWebpAction
 import com.intellij.ide.util.ExportToFileUtil
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -64,5 +65,9 @@ class ConvertAllToWebpAction : AnAction() {
             }
         }
         return mutableListOf
+    }
+
+    override fun getActionUpdateThread(): ActionUpdateThread {
+        return super.getActionUpdateThread()
     }
 }

@@ -10,11 +10,6 @@
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
-    <depends>com.intellij.modules.platform</depends>
-    <depends>com.intellij.modules.java</depends>
-    <!--    <depends>com.intellij.modules.androidstudio</depends>-->
-    <depends>org.jetbrains.kotlin</depends>
-<!--      <depends>org.jetbrains.android</depends>-->
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="jzy.taining.plugins.jspark.services.MyApplicationService"/>
@@ -39,9 +34,10 @@
             <add-to-group group-id="NewGroup" anchor="first"/>
         </action>
         <action id="taining.jzy.export.project" class="jzy.taining.plugins.jspark.actions.ProjectExport"
-                text="ProjectExport" description="ProjectExport">
+                text="PExport" description="ProjectExport">
             <keyboard-shortcut keymap="$default" first-keystroke="alt shift P" second-keystroke="E"/>
             <keyboard-shortcut keymap="Mac OS X" first-keystroke="control alt P" second-keystroke="E"/>
+            <add-to-group group-id="FileExportGroup" anchor="last"/>
         </action>
     </actions>
 </idea-plugin>
