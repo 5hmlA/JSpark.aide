@@ -10,11 +10,16 @@
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+<!--    <depends>com.intellij.modules.java</depends>-->
+    <!--    <depends>com.intellij.modules.androidstudio</depends>-->
+    <depends>org.jetbrains.kotlin</depends>
+    <depends>org.jetbrains.android</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="jzy.taining.plugins.jspark.services.MyApplicationService"/>
-        <projectService serviceImplementation="jzy.taining.plugins.jspark.services.MyProjectService"/>
-    </extensions>
+<!--    <extensions defaultExtensionNs="com.intellij">-->
+<!--        <applicationService serviceImplementation="jzy.taining.plugins.jspark.services.MyApplicationService"/>-->
+<!--        <projectService serviceImplementation="jzy.taining.plugins.jspark.services.MyProjectService"/>-->
+<!--    </extensions>-->
 
 <!--    <applicationListeners>-->
 <!--        <listener class="jzy.taining.plugins.jspark.listeners.MyProjectManagerListener"-->

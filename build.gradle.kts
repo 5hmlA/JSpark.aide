@@ -66,7 +66,7 @@ dependencies {
 
 // Configure IntelliJ Platform Gradle Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html
 intellijPlatform {
-    ide
+
     pluginConfiguration {
         version = providers.gradleProperty("pluginVersion")
 
