@@ -2,6 +2,9 @@ import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import org.jetbrains.kotlin.cli.common.isWindows
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 val isWin = System.getProperty("os.name").contains("win", true)
 val isMac = System.getProperty("os.name").contains("mac", true)
@@ -24,7 +27,19 @@ plugins {
 }
 
 group = providers.gradleProperty("pluginGroup").get()
-version = providers.gradleProperty("pluginVersion").get()
+
+fun currentDate(): String {
+    // 获取当前 UTC+8 的时间
+    val zoneId = ZoneId.of("Asia/Shanghai") // UTC+8
+    val currentDateTime = ZonedDateTime.now(zoneId)
+    // 定义格式
+    val formatter = DateTimeFormatter.ofPattern("yyMMdd")
+    // 格式化输出
+    return currentDateTime.format(formatter)
+
+}
+println(currentDate())
+version = currentDate()
 
 // Set the JVM language level used to build the project.
 kotlin {
